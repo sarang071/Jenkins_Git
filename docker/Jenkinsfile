@@ -9,7 +9,7 @@ pipeline {
         stage('Builing image') {
             environment{
                 registry_endpoint = "${env.RegistryURL}" + "${env.RepoName}"
-                tag = "${env.RepoName}" + "$GIT_COMMIT"
+                tag = "${env.RepoName}" + ':' + "$GIT_COMMIT"
             }
             steps{
                 script{
