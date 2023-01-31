@@ -1,0 +1,36 @@
+pipeline {
+    agent any
+    environment{
+        RegistryURL = "https://hub.docker.com/repository/"
+        RepoName = "sarangp007/jenkins_docker"
+        dh_creds = 'dockerhub_creds'
+    }
+    stages{
+        stage('Builing image') {
+            environment{
+                registry_endpoint = "${env.RegistryURL}" + "${env.RepoName}"
+                tag = "${env.RepoName}" + "$GIT_COMMIT"
+            }
+            steps{
+                script{
+                     docker.withRegistry(registry_endpoint, dh_creds) {
+
+                     def Image = docker.build(tag)
+
+                     /* Push the container to the custom Registry */
+                     Image.push()
+
+                 }
+            }
+
+        }
+    }
+    
+    }
+  post{
+    always{
+        echo "Deleting Workspace"
+        deleteDir()
+    }
+   }
+}

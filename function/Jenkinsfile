@@ -1,0 +1,50 @@
+pipeline {
+    agent any
+    parameters {
+         choice(name: 'ACCOUNT', choices: ['dev','qa'], description: 'Pick Enviornment')
+    }
+    environment {
+        Dev_Account = "5412236441"
+        QA_Account  = "7895441265"
+    }
+    stages{
+        stage('Deploy on Dev'){
+            
+                when{
+                    expression{
+                        params.ACCOUNT == "dev"
+                    }
+                }
+        steps{
+            echo "Deploying on DEV"
+            getAccountNumber(params.ACCOUNT)
+            }
+        }
+   stage('Deploy on QA'){
+            
+                when{
+                    expression{
+                        params.ACCOUNT == "qa"
+                    }
+                }
+        steps{
+            echo "Deploying on QA"
+             getAccountNumber(params.ACCOUNT)
+            }
+        }
+   }
+   post{
+    always{
+        echo "Deleting Workspace"
+        deleteDir()
+    }
+   }
+} 
+    def getAccountNumber (String ACCOUNT) {
+    if(params.ACCOUNT == 'dev'){
+        echo "Building in DEV and Account ${env.Dev_Account}"
+    }
+    else {
+        echo "Building in QA and Account ${env.QA_Account}"
+    }
+}

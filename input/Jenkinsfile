@@ -1,0 +1,18 @@
+pipeline {
+    agent any
+    stages{
+        stage('Example') {
+            input {
+                message "Kaise ho bhai"
+                ok "Badhiya"
+                submitter "alice,bob"
+                parameters {
+                    string(name: 'PERSON', defaultValue: 'Sarang', description: 'Who should I say hello to?')
+                }
+            }
+        steps('Say thanks'){
+            echo "Thanks for Approval Mr. ${params.PERSON}"
+        }
+    }
+  }
+}
