@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment{
-        RegistryURL = "https://hub.docker.com/repository/"
+        RegistryURL = "https://hub.docker.com/r/"
         RepoName = "sarangp007/jenkins_docker"
         dh_creds = 'dockerhub_creds'
     }
@@ -27,10 +27,6 @@ pipeline {
     }
     
     }
-  post{
-    always{
-        echo "Deleting Workspace"
-        deleteDir()
-    }
-   }
+  
 }
+//https://hub.docker.com/r/sarangp007/jenkins_docker
