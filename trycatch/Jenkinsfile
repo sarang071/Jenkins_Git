@@ -1,21 +1,22 @@
 pipeline {
+    agent any
      stages {
         stage('Try Input'){
             steps{
                 script{
                     echo "try and catch"
-                }
+               
                 def userInput
-                try{
+                try {
                     userInput = input(
-                        id : 'Proceed' , message : 'Did that work'
-                        parameters {
-                            [$class : 'BoolenParameterDefinition', defaultValue : 'true', description : ''  ]
-                        }
-                    )
+                        id: 'Proceed' , message : 'Did that work',
+                        parameters [
+                            [$class : 'BoolenParameterDefinition', defaultValue : true, description: '', name: 'Please Confirm'  ]
+                        ])
                 }
                 catch(err){
                     echo "Aborting Job"
+                }
                 }
             }
         }
