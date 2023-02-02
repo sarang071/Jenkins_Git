@@ -1,0 +1,24 @@
+pipeline {
+     stages {
+        stage('Try Input'){
+            steps{
+                script{
+                    echo "try and catch"
+                }
+                def userInput
+                try{
+                    userInput = input(
+                        id : 'Proceed' , message : 'Did that work'
+                        parameters : [
+                            [$class : 'BoolenParameterDefinition', defaultValue : 'true', description : ''  ]
+
+                        ]
+                    )
+                }
+                catch(err){
+                    echo "Aborting Job"
+                }
+            }
+        }
+     }
+}
