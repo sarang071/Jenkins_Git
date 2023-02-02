@@ -9,9 +9,8 @@ pipeline {
                 try{
                     userInput = input(
                         id : 'Proceed' , message : 'Did that work'
-                        parameters : [
+                        parameters [
                             [$class : 'BoolenParameterDefinition', defaultValue : 'true', description : ''  ]
-
                         ]
                     )
                 }
