@@ -1,6 +1,6 @@
 pipeline {
     agent any
-     stages {
+     stages{
         stage('Try Input'){
             steps{
                 script{
@@ -10,9 +10,10 @@ pipeline {
                 try {
                     userInput = input(
                         id: 'Proceed' , message : 'Did that work',
-                        parameters [
-                            [$class : 'BoolenParameterDefinition', defaultValue : true, description: '', name: 'Please Confirm'  ]
+                        parameters:[
+                            [$class: 'BooleanParameterDefinition', defaultValue : true, description: '', name: 'Please Confirm'  ]
                         ])
+                 echo "I am proceeding"
                 }
                 catch(err){
                     echo "Aborting Job"
